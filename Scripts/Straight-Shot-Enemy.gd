@@ -1,9 +1,9 @@
 extends Node2D
 
 
-onready var bullet_scene = load("res://Scenes/Bullet.tscn")
+@onready var bullet_scene = load("res://Scenes/Bullet.tscn")
 
-onready var player = get_parent().get_parent().get_node("Player")
+@onready var player = get_parent().get_parent().get_node("Player")
 
 var type = "ENEMY"
 
@@ -12,8 +12,9 @@ func _ready():
 	$Timer.start()
 	
 	var target = Vector2(position.x, 100)
-	$Move_Tween.interpolate_property(self, "position", position, target, 2, Tween.TRANS_QUINT, Tween.EASE_OUT)
-	$Move_Tween.start()
+	var tween = create_tween()
+	for sprite in get_children():
+		tween.tween_property(sprite, "position", target, 1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,12 +27,12 @@ func _process(delta):
 		queue_free()
 	
 func spawn_bullets():
-	var b1 = bullet_scene.instance()
+	var b1 = bullet_scene.instantiate()
 	
 	get_parent().add_child(b1)
 	b1.bullet_speed = 800
 	b1.position = self.position
-	b1.dir = Vector2(player.position.x - self.position.x, player.position.y - self.position.y).normalized()
+	b1.dir = Vector2(player.global_position.x - self.position.x, player.global_position.y - self.position.y).normalized()
 	
 
 
