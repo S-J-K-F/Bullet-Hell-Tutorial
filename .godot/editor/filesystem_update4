@@ -1,6 +1,0 @@
-res://default_env.tres
-res://Scenes/Game.tscn
-res://Scenes/Bullet.tscn
-res://Scenes/Player-Bullet.tscn
-res://Scenes/Enemies/Straight-Shot-Enemy.tscn
-res://Scenes/Player.tscn
